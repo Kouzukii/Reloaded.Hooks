@@ -60,7 +60,7 @@ public unsafe partial class Scanner : IScanner, IDisposable
         else
         {
             var externalProcess = new ExternalMemory(process);
-            externalProcess.ReadRaw(module.BaseAddress, out var data, module.ModuleMemorySize);
+            externalProcess.ReadRaw((UIntPtr)module.BaseAddress.ToPointer(), out var data, module.ModuleMemorySize);
 
             _gcHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
             _dataPtr = (byte*)_gcHandle.Value.AddrOfPinnedObject();
